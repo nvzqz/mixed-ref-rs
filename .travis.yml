@@ -6,5 +6,9 @@ matrix:
       os: osx
     - rust: beta
     - rust: nightly
+      env: EXP_FLAGS="--no-default-features"
 script:
   - cargo test
+  - if [ -n "$EXP_FLAGS" ]; then
+      cargo test $EXP_FLAGS;
+    fi
