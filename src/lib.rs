@@ -64,6 +64,15 @@ impl<'a, T: ?Sized> From<Box<T>> for MixedRefMut<'a, T> {
     }
 }
 
+impl<'a, T: ?Sized> From<MixedRefMut<'a, T>> for MixedRef<'a, T> {
+    fn from(r: MixedRefMut<'a, T>) -> Self {
+        match r {
+            MixedRefMut::Owned(b) => MixedRef::Owned(b),
+            MixedRefMut::Borrowed(r) => MixedRef::Borrowed(r),
+        }
+    }
+}
+
 impl<'a, T: ?Sized> Deref for MixedRef<'a, T> {
     type Target = T;
 
