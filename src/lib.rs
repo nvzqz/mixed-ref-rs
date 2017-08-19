@@ -24,7 +24,7 @@ use core::borrow::{Borrow, BorrowMut};
 /// If mutably borrowing data, use [`MixedRefMut`].
 ///
 /// [`MixedRefMut`]: enum.MixedRefMut.html
-#[derive(Debug)]
+#[derive(Debug, Eq)]
 pub enum MixedRef<'a, T: ?Sized + 'a> {
     /// Owned, boxed data.
     Owned(Box<T>),
@@ -37,12 +37,24 @@ pub enum MixedRef<'a, T: ?Sized + 'a> {
 /// This acts similarly to [`MixedRef`], except that the inner data is mutable.
 ///
 /// [`MixedRef`]: enum.MixedRef.html
-#[derive(Debug)]
+#[derive(Debug, Eq)]
 pub enum MixedRefMut<'a, T: ?Sized + 'a> {
     /// Owned, boxed data.
     Owned(Box<T>),
     /// Borrowed, mutable data.
     Borrowed(&'a mut T)
+}
+
+impl<'a, T: ?Sized + AsRef<U>, U: ?Sized + PartialEq> PartialEq<T> for MixedRef<'a, U> {
+    fn eq(&self, other: &T) -> bool {
+        (self as &U) == other.as_ref()
+    }
+}
+
+impl<'a, T: ?Sized + AsRef<U>, U: ?Sized + PartialEq> PartialEq<T> for MixedRefMut<'a, U> {
+    fn eq(&self, other: &T) -> bool {
+        (self as &U) == other.as_ref()
+    }
 }
 
 impl<'a, T: Default> Default for MixedRef<'a, T> {
