@@ -72,7 +72,19 @@ impl<'a, T: ?Sized> From<Box<T>> for MixedRef<'a, T> {
     }
 }
 
+impl<'a, T: ?Sized> From<Box<T>> for MixedRefMut<'a, T> {
+    fn from(b: Box<T>) -> Self {
+        MixedRefMut::Owned(b)
+    }
+}
+
 impl<'a> From<String> for MixedRef<'a, str> {
+    fn from(s: String) -> Self {
+        Self::from(s.into_boxed_str())
+    }
+}
+
+impl<'a> From<String> for MixedRefMut<'a, str> {
     fn from(s: String) -> Self {
         Self::from(s.into_boxed_str())
     }
@@ -81,18 +93,6 @@ impl<'a> From<String> for MixedRef<'a, str> {
 impl<'a, T> From<Vec<T>> for MixedRef<'a, [T]> {
     fn from(v: Vec<T>) -> Self {
         Self::from(v.into_boxed_slice())
-    }
-}
-
-impl<'a, T: ?Sized> From<Box<T>> for MixedRefMut<'a, T> {
-    fn from(b: Box<T>) -> Self {
-        MixedRefMut::Owned(b)
-    }
-}
-
-impl<'a> From<String> for MixedRefMut<'a, str> {
-    fn from(s: String) -> Self {
-        Self::from(s.into_boxed_str())
     }
 }
 
