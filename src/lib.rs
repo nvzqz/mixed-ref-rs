@@ -96,37 +96,25 @@ impl<'a, T: ?Sized> DerefMut for MixedRefMut<'a, T> {
 }
 
 impl<'a, T: ?Sized> AsRef<T> for MixedRef<'a, T> {
-    fn as_ref(&self) -> &T {
-        self
-    }
+    fn as_ref(&self) -> &T { self }
 }
 
 impl<'a, T: ?Sized> AsRef<T> for MixedRefMut<'a, T> {
-    fn as_ref(&self) -> &T {
-        self
-    }
+    fn as_ref(&self) -> &T { self }
 }
 
 impl<'a, T: ?Sized> AsMut<T> for MixedRefMut<'a, T> {
-    fn as_mut(&mut self) -> &mut T {
-        self
-    }
+    fn as_mut(&mut self) -> &mut T { self }
 }
 
 impl<'a, T: ?Sized> Borrow<T> for MixedRef<'a, T> {
-    fn borrow(&self) -> &T {
-        self
-    }
+    fn borrow(&self) -> &T { self }
 }
 
 impl<'a, T: ?Sized> Borrow<T> for MixedRefMut<'a, T> {
-    fn borrow(&self) -> &T {
-        self
-    }
+    fn borrow(&self) -> &T { self }
 }
 
 impl<'a, T: ?Sized> BorrowMut<T> for MixedRefMut<'a, T> {
-    fn borrow_mut(&mut self) -> &mut T {
-        self
-    }
+    fn borrow_mut(&mut self) -> &mut T { self }
 }
