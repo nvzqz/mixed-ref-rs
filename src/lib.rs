@@ -139,3 +139,10 @@ impl<'a, T: ?Sized> Borrow<T> for MixedRefMut<'a, T> {
 impl<'a, T: ?Sized> BorrowMut<T> for MixedRefMut<'a, T> {
     fn borrow_mut(&mut self) -> &mut T { self }
 }
+
+impl<'a, T: ?Sized> MixedRefMut<'a, T> {
+    /// Downcasts `self` into a reference to immutable data.
+    pub fn downcast(self) -> MixedRef<'a, T> {
+        self.into()
+    }
+}
