@@ -1,4 +1,22 @@
 //! Mixed references to owned and borrowed memory.
+//!
+//! # Usage
+//!
+//! This crate is available [on crates.io](https://crates.io/crates/mixed_ref)
+//! and can be used by adding the following to your project's `Cargo.toml`:
+//!
+//! ```toml
+//! [dependencies]
+//! mixed_ref = "0.1.0"
+//! ```
+//!
+//! and this to your crate root:
+//!
+//! ```
+//! #[macro_use]
+//! extern crate mixed_ref;
+//! # fn main() {}
+//! ```
 #![cfg_attr(not(feature = "std"), no_std)]
 #![cfg_attr(not(feature = "std"), feature(alloc))]
 
