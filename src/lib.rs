@@ -1,5 +1,17 @@
-use std::ops::{Deref, DerefMut};
-use std::borrow::{Borrow, BorrowMut};
+#![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(not(feature = "std"), feature(alloc))]
+
+#[cfg(feature = "std")]
+extern crate core;
+
+#[cfg(not(feature = "std"))]
+extern crate alloc;
+
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+
+use core::ops::{Deref, DerefMut};
+use core::borrow::{Borrow, BorrowMut};
 
 /// A reference to either owned or borrowed data.
 ///
