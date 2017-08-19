@@ -70,7 +70,7 @@ impl<'a, T: ?Sized> Deref for MixedRef<'a, T> {
     fn deref(&self) -> &T {
         match *self {
             MixedRef::Owned(ref b) => b,
-            MixedRef::Borrowed(r) => r
+            MixedRef::Borrowed(ref r) => r
         }
     }
 }
