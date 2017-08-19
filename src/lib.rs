@@ -24,6 +24,7 @@ use core::borrow::{Borrow, BorrowMut};
 /// If mutably borrowing data, use [`MixedRefMut`].
 ///
 /// [`MixedRefMut`]: enum.MixedRefMut.html
+#[derive(Debug)]
 pub enum MixedRef<'a, T: ?Sized + 'a> {
     /// Owned, boxed data.
     Owned(Box<T>),
@@ -36,6 +37,7 @@ pub enum MixedRef<'a, T: ?Sized + 'a> {
 /// This acts similarly to [`MixedRef`], except that the inner data is mutable.
 ///
 /// [`MixedRef`]: enum.MixedRef.html
+#[derive(Debug)]
 pub enum MixedRefMut<'a, T: ?Sized + 'a> {
     /// Owned, boxed data.
     Owned(Box<T>),
