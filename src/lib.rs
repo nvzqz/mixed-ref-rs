@@ -9,6 +9,8 @@ extern crate alloc;
 
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::{String, Vec};
 
 use core::ops::{Deref, DerefMut};
 use core::borrow::{Borrow, BorrowMut};
@@ -70,9 +72,33 @@ impl<'a, T: ?Sized> From<Box<T>> for MixedRef<'a, T> {
     }
 }
 
+impl<'a> From<String> for MixedRef<'a, str> {
+    fn from(s: String) -> Self {
+        Self::from(Box::from(s))
+    }
+}
+
+impl<'a, T> From<Vec<T>> for MixedRef<'a, [T]> {
+    fn from(v: Vec<T>) -> Self {
+        Self::from(Box::from(v))
+    }
+}
+
 impl<'a, T: ?Sized> From<Box<T>> for MixedRefMut<'a, T> {
     fn from(b: Box<T>) -> Self {
         MixedRefMut::Owned(b)
+    }
+}
+
+impl<'a> From<String> for MixedRefMut<'a, str> {
+    fn from(s: String) -> Self {
+        Self::from(Box::from(s))
+    }
+}
+
+impl<'a, T> From<Vec<T>> for MixedRefMut<'a, [T]> {
+    fn from(v: Vec<T>) -> Self {
+        Self::from(Box::from(v))
     }
 }
 
