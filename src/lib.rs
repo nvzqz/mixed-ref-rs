@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! mixed_ref = "0.1.0"
+//! mixed_ref = "0.1.1"
 //! ```
 //!
 //! and this to your crate root:
