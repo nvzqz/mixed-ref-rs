@@ -1,4 +1,5 @@
 use std::ops::Deref;
+use std::borrow::Borrow;
 
 /// A reference to either owned or borrowed data.
 ///
@@ -42,6 +43,12 @@ impl<'a, T: ?Sized> Deref for MixedRef<'a, T> {
 
 impl<'a, T: ?Sized> AsRef<T> for MixedRef<'a, T> {
     fn as_ref(&self) -> &T {
+        self
+    }
+}
+
+impl<'a, T: ?Sized> Borrow<T> for MixedRef<'a, T> {
+    fn borrow(&self) -> &T {
         self
     }
 }
