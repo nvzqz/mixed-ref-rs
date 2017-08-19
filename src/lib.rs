@@ -229,7 +229,7 @@ impl<'a, T: ?Sized + ToOwned> Into<Cow<'a, T>> for MixedRef<'a, T>
 impl<'a, T: ?Sized + ToOwned> Into<Cow<'a, T>> for MixedRefMut<'a, T>
     where Box<T>: Into<T::Owned>
 {
-    fn into(self) -> Cow<'a, T> { MixedRef::from(self).into() }
+    fn into(self) -> Cow<'a, T> { self.downcast().into() }
 }
 
 impl<'a, T: ?Sized> MixedRefMut<'a, T> {
