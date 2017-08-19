@@ -167,7 +167,7 @@ impl<'a, T: ?Sized> Deref for MixedRefMut<'a, T> {
 }
 
 impl<'a, T: ?Sized> DerefMut for MixedRefMut<'a, T> {
-    fn deref_mut (&mut self) -> &mut T {
+    fn deref_mut(&mut self) -> &mut T {
         match *self {
             MixedRefMut::Owned(ref mut b) => b,
             MixedRefMut::Borrowed(ref mut r) => r
