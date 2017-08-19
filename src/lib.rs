@@ -27,9 +27,14 @@ extern crate core;
 extern crate alloc;
 
 #[cfg(not(feature = "std"))]
+use alloc::borrow::Cow;
+#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::{String, Vec};
+
+#[cfg(feature = "std")]
+use std::borrow::Cow;
 
 use core::ops::{Deref, DerefMut};
 use core::borrow::{Borrow, BorrowMut};
@@ -197,6 +202,34 @@ impl<'a, T: ?Sized> Borrow<T> for MixedRefMut<'a, T> {
 
 impl<'a, T: ?Sized> BorrowMut<T> for MixedRefMut<'a, T> {
     fn borrow_mut(&mut self) -> &mut T { self }
+}
+
+impl<'a, T: ?Sized + ToOwned> From<Cow<'a, T>> for MixedRef<'a, T>
+    where T::Owned: Into<Box<T>>
+{
+    fn from(cow: Cow<'a, T>) -> Self {
+        match cow {
+            Cow::Owned(b) => MixedRef::Owned(b.into()),
+            Cow::Borrowed(r) => MixedRef::Borrowed(r),
+        }
+    }
+}
+
+impl<'a, T: ?Sized + ToOwned> Into<Cow<'a, T>> for MixedRef<'a, T>
+    where Box<T>: Into<T::Owned>
+{
+    fn into(self) -> Cow<'a, T> {
+        match self {
+            MixedRef::Owned(b) => Cow::Owned(b.into()),
+            MixedRef::Borrowed(r) => Cow::Borrowed(r),
+        }
+    }
+}
+
+impl<'a, T: ?Sized + ToOwned> Into<Cow<'a, T>> for MixedRefMut<'a, T>
+    where Box<T>: Into<T::Owned>
+{
+    fn into(self) -> Cow<'a, T> { MixedRef::from(self).into() }
 }
 
 impl<'a, T: ?Sized> MixedRefMut<'a, T> {
