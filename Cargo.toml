@@ -6,6 +6,7 @@ license = "MIT/Apache-2.0"
 homepage = "https://github.com/nvzqz/mixed-ref-rs"
 repository = "https://github.com/nvzqz/mixed-ref-rs"
 categories = ["no-std"]
+description = "Mixed references to owned and borrowed memory."
 
 [badges]
 travis-ci = { repository = "nvzqz/mixed-ref-rs" }
