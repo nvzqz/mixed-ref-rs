@@ -10,4 +10,4 @@ Mixed references to owned and borrowed memory in Rust.
 [crate-badge]: https://img.shields.io/crates/v/mixed_ref.svg
 
 [travis]:       https://travis-ci.org/nvzqz/mixed-ref-rs
-[travis-badge]: https://api.travis-ci.org/nvzqz/mixed-ref.svg?branch=master
+[travis-badge]: https://api.travis-ci.org/nvzqz/mixed-ref-rs.svg?branch=master
