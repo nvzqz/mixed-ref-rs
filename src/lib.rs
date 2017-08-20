@@ -27,7 +27,7 @@ extern crate core;
 extern crate alloc;
 
 #[cfg(not(feature = "std"))]
-use alloc::borrow::Cow;
+use alloc::borrow::{Cow, ToOwned};
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
